@@ -252,7 +252,7 @@ module.exports = {
     module: {
         //loaders加载器 使用外部配置的 .babelrc进行配置
         loaders: [{
-            test: /\.(js|jsx)$/,
+            test: /\\.(js|jsx)$/,
             exclude: /node_modules/,
             loader: 'babel-loader'
         }]
@@ -295,15 +295,15 @@ module.exports = {
         //loaders加载器 使用外部配置的 .babelrc进行配置
         loaders: [
             {
-                test: /\.css$/,
+                test: /\\.css$/,
                 loaders: ['style-loader?outputPath=../css/', 'css-loader?outputPath=../css/']         
             },
             {
-                test: /\.(png|jpg)$/,
+                test: /\\.(png|jpg)$/,
                 loader: 'url-loader?limit=40000&outputPath=../img/'
             },
             {
-                test: /\.(js|jsx)$/,
+                test: /\\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             }
