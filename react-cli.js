@@ -187,7 +187,7 @@ function fillText(filled) {
     "main": "index.js",
     "scripts": {
         "start": "webpack-dev-server --config ./config/webpack.config.dev.js --inline",
-        "build": "webpack --config ./config/webpack.config.prod.js" --watch,
+        "build": "webpack --config ./config/webpack.config.prod.js --watch",
         "init": "npm config set registry https://registry.npm.taobao.org | npm i babel babel-core babel-loader babel-preset-es2015 babel-preset-react webpack webpack-dev-server html-webpack-plugin css-loader style-loader url-loader file-loader --save-dev | npm i react react-dom react-router-dom --save "
     },
     "dependencies": {
