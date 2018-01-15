@@ -187,7 +187,7 @@ function fillText(filled) {
     "main": "index.js",
     "scripts": {
         "start": "webpack-dev-server --config ./config/webpack.config.dev.js --inline",
-        "build": "webpack --config ./config/webpack.config.prod.js",
+        "build": "webpack --config ./config/webpack.config.prod.js" --watch,
         "init": "npm config set registry https://registry.npm.taobao.org | npm i babel babel-core babel-loader babel-preset-es2015 babel-preset-react webpack webpack-dev-server html-webpack-plugin css-loader style-loader url-loader file-loader --save-dev | npm i react react-dom react-router-dom --save "
     },
     "dependencies": {
@@ -252,7 +252,7 @@ module.exports = {
     module: {
         //loaders加载器 使用外部配置的 .babelrc进行配置
         loaders: [{
-            test: /\.(js|jsx)$/,
+            test: /\\.(js|jsx)$/,
             exclude: /node_modules/,
             loader: 'babel-loader'
         }]
@@ -295,15 +295,15 @@ module.exports = {
         //loaders加载器 使用外部配置的 .babelrc进行配置
         loaders: [
             {
-                test: /\.css$/,
+                test: /\\.css$/,
                 loaders: ['style-loader?outputPath=../css/', 'css-loader?outputPath=../css/']         
             },
             {
-                test: /\.(png|jpg)$/,
+                test: /\\.(png|jpg)$/,
                 loader: 'url-loader?limit=40000&outputPath=../img/'
             },
             {
-                test: /\.(js|jsx)$/,
+                test: /\\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             }
