@@ -1,10 +1,17 @@
-//引入node自带的相关模块
+/**
+ * @file: 文件 
+ * @author: JihangGuo 
+ * @last Modified time: 2018-02-02 14:15:11 
+ * @email: guojihang@baidu.com 
+ */
+
+// 引入node自带的相关模块
 const fs = require('fs')
 const path = require('path')
 
-const dev_path = __dirname+'/demo'
-//文件目录配置
-var dir_arr = [
+const dev_path = __dirname+'/app'
+// 文件目录配置
+const dir_arr = [
     'scripts/',
     'config/',
     'static/',
@@ -13,13 +20,13 @@ var dir_arr = [
     'src/containers/'
 ]
 //文件配置
-var file_arr = [
+const file_arr = [
     '.babelrc',
-    'app.jsx',
-    'index.js',
-    'index.html',
+    'src/app.jsx',
+    'src/index.js',
     'package.json',
     'static/template.html',
+    'scripts/init.js',
     'scripts/build.js',
     'scripts/start.js',
     'config/webpack.config.dev.js',
@@ -76,234 +83,378 @@ function fillText(filled) {
     switch (filled)
     {
         case 'static/template.html':
-            var write_text = `
-                <html>
+            var write_text =
+`
+<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     <title>React-cli</title>
 </head>
-
 <body>
     <noscript>
         您的浏览器不支持JS脚本的运行！
     </noscript>
     <div id="root"></div>
-
-    
-<script type="text/javascript" src="js/bundle.js?7aca2699e85608e4334e"></script></body>
-
+</body>
 </html>
-            `;
+`;
             return write_text;
             break;
         case 'src/containers/main.jsx':
-            var write_text = `
-                import React, { Component } from 'react';
-                class notFound extends Component {
-                    render() { 
-                        return (
-                            <h1>Hello World！</h1>
-                        )
-                    }
-                }
-                export default notFound 
-            `;
+            var write_text =
+`
+/**
+ * @file: 文件 
+ * @author: JihangGuo 
+ * @last Modified time: 2018-02-02 14:19:02 
+ * @email: guojihang@baidu.com 
+ */
+import React, { Component } from 'react';
+class notFound extends Component {
+    render() {
+        return (
+            <h1>Hello World！</h1>
+        )
+    }
+}
+export default notFound; 
+`;
             return write_text;
             break;
         case 'src/components/notFound.jsx':
-            var write_text = `
-                import React, { Component } from 'react';
-                class notFound extends Component {
-                    render() { 
-                        return (
-                            <h1>找不到页面啦</h1>
-                        )
-                    }
-                }
-                export default notFound 
-            `;
+            var write_text =
+`
+/**
+ * @file: 文件 
+ * @author: JihangGuo 
+ * @last Modified time: 2018-02-02 14:19:50 
+ * @email: guojihang@baidu.com 
+ */
+import React, { Component } from 'react';
+class notFound extends Component {
+    render() {
+        return (
+            <h1>找不到页面啦</h1>
+        )
+    }
+}
+export default notFound;
+`;
             return write_text;
             break;
-        case 'app.jsx':
-            var write_text = `
-                import React, { Component } from 'react';
-                import { HashRouter as Router, Route, Switch} from 'react-router-dom'
-                import main from './src/containers/main.jsx'
-                import notFound from './src/components/notFound.jsx'
-                
-                class App extends Component {
-                    render() {
-                        return (
-                            <Router>
-                                <div>
-                                    <Switch>
-                                        <Route exact path="/" component={main} />
-                                        <Route path="/" component={notFound} />
-                                    </Switch>
-                                </div>
-                            </Router>
-                        );
-                    }
-                }
-                export default App;
-            `    
+        case 'src/app.jsx':
+            var write_text =
+`
+/**
+ * @file: 文件 
+ * @author: JihangGuo 
+ * @last Modified time: 2018-02-02 14:20:20 
+ * @email: guojihang@baidu.com 
+ */
+import React, { Component } from 'react';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+import main from './containers/main.jsx'
+import notFound from './components/notFound.jsx'
+class App extends Component {
+    render() {
+        return (
+            <Router>
+                <div>
+                    <Switch>
+                        <Route exact path="/" component={main} />
+                        <Route path="/" component={notFound} />
+                    </Switch>
+                </div>
+            </Router>
+        );
+    }
+}
+export default App;
+`    
             return write_text;
             break;
-        case 'index.js':
-            var write_text = `
-                import React from 'react';
-                import ReactDOM from 'react-dom';
-                import Root from './app.jsx'
-                ReactDOM.render(<Root />, document.getElementById('root'));
-            `
-            return write_text;
-            break;    
-        case 'index.html':
-            var write_text = `
-                <html lang="en">
-                    <head>
-                        <meta charset="utf-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-                        <title>React-cli</title>
-                    </head>
-                    <body>
-                        <noscript>
-                            您的浏览器不支持JS脚本的运行！
-                        </noscript>
-                        <div id="root"></div>
-                        <script src='bundle.js'></script>
-                    </body>
-                </html>
-            `;
+        case 'src/index.js':
+            var write_text = 
+`
+/**
+ * @file: 文件 
+ * @author: JihangGuo 
+ * @last Modified time: 2018-02-02 14:21:26 
+ * @email: guojihang@baidu.com 
+ */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Root from './app.jsx'
+ReactDOM.render(<Root />, document.getElementById('root'));
+
+`;
             return write_text;
             break;    
         case 'package.json':
-            var write_text = `
-            {
+            var write_text =
+`
+{
     "name": "react-demo",
     "version": "1.0.0",
     "description": "react-cli",
     "main": "index.js",
     "scripts": {
-        "start": "webpack-dev-server --config ./config/webpack.config.dev.js --inline",
-        "build": "webpack --config ./config/webpack.config.prod.js --watch",
-        "init": "npm config set registry https://registry.npm.taobao.org | npm i babel babel-core babel-loader babel-preset-es2015 babel-preset-react webpack webpack-dev-server html-webpack-plugin css-loader style-loader url-loader file-loader --save-dev | npm i react react-dom react-router-dom --save "
+        "start": "node ./scripts/start.js",
+        "build": "node ./scripts/build.js",
+        "init": "node ./scripts/init.js"
     },
-    "dependencies": {
-        
-    },
-    "devDependencies": {
-        
-    },
+    "dependencies": {},
+    "devDependencies": {},
     "author": "JihangGuo",
     "license": "ISC"
 }
-
-            `;
+`;
             return write_text;
             break;    
         case 'scripts/build.js':
-            return '123';
-            break;    
+            var write_text =
+`
+/**
+ * @file: 文件
+ * @author: JihangGuo
+ * @last Modified time: 2018-02-02 13:19:37
+ * @email: guojihang@baidu.com
+ */
+const process = require('child_process');
+let watchProd = process.spawn('webpack', ['--config', './config/webpack.config.prod.js', '--watch']);
+watchProd.stdout.on('data', (data) => {
+    console.log('打包监听 : \n' + data);
+});
+watchProd.on('close', (data) => {
+    console.log('关闭打包模式 : \n');
+});
+`;
+            return write_text;
+            break;
+        case 'scripts/init.js':
+            var write_text =
+`
+
+/**
+ * @file: 项目初始化文件
+ * @author: JihangGuo
+ * @last Modified time: 2018-02-02 11:28:46
+ * @email: guojihang@baidu.com
+ */
+const process = require('child_process');
+
+// npm源设置
+const npmRegistry = 'https://registry.npm.taobao.org';
+// 安装的运行依赖模块
+const devModules = [
+  'i',
+  'babel',
+  'babel-core',
+  'babel-loader',
+  'babel-preset-es2015',
+  'babel-preset-react',
+  'babel-preset-stage-0',
+  'css-loader',
+  'file-loader',
+  'html-webpack-plugin',
+  'style-loader','url-loader',
+  'webpack',
+  'less-loader',
+  'less',
+  'webpack-dev-server'
+];
+
+// 安装的开发依赖模块
+const prodModules = [
+  'react',
+  'react-dom',
+  'react-router-dom',
+  'axios',
+  "antd",
+  "moment"
+];
+
+// 由于spawn命令参数传递的特殊性 故在数组[0][-1]加入额外参数
+let commontProd = prodModules.map((item) => {
+  return item;
+});
+let commontDev = devModules.map((item) => {
+  return item;
+});
+commontProd.push('--save');
+commontProd.unshift('i');
+commontDev.push('--save-dev');
+commontDev.unshift('i');
+
+// 运行线程任务
+process.execSync(\`npm config set registry \${npmRegistry}\`);
+console.log("设置npm源为淘宝源成功");
+
+let runShellTwo = process.spawn('npm',commontProd);
+runShellTwo.stdout.on('data', (data) => {
+  console.log("正在下载依赖模块 : \\n" + data);
+});
+runShellTwo.on('close', (data) => {
+  console.log("依赖模块安装成功\\n");
+});
+
+let runShellThree = process.spawn('npm',commontDev);
+runShellThree.stdout.on('data', (data) => {
+  console.log("正在下载开发依赖模块 : \\n" + data);
+});
+runShellThree.on('close', (data) => {
+  console.log("开发依赖模块安装成功\\n项目初始化完成");
+});
+`;
+            return write_text;
+            break;  
         case 'scripts/start.js':
-            var write_text = `
-                const process = require('child_process')
-                
-                var do_shell = [
-                    'webpack-dev-server'
-                ]
-                for(var i=0;i<do_shell.length;i++)
-                {
-                   process.exec(do_shell[i]); 
-                }
-            `
+            var write_text =
+`
+/**
+ * @file: 文件
+ * @author: JihangGuo
+ * @last Modified time: 2018-02-02 13:19:37
+ * @email: guojihang@baidu.com
+ */
+const process = require('child_process');
+let watchDev = process.spawn('webpack-dev-server', ['--config', './config/webpack.config.dev.js', '--inline']);
+watchDev.stdout.on('data', (data) => {
+    console.log('开发模式 : \n' + data);
+});
+watchDev.on('close', (data) => {
+    console.log('关闭开发模式 : \n');
+});
+`;
             return write_text;
             break;    
     
         case '.babelrc':
-            var write_text = `
-            {
-                "presets": [
-                    "react",
-                    "es2015"
-                ]
-            }
-            `;
+            var write_text =
+`
+{
+    "presets": [
+        "react",
+        "es2015"
+    ]
+}
+`;
             return write_text;
             break;
         case 'config/webpack.config.dev.js':
-            var write_text = `
-
+            var write_text =
+`
+/**
+ * @file: 文件
+ * @author: JihangGuo
+ * @last Modified time: 2018-02-02 13:28:35
+ * @email: guojihang@baidu.com
+ */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-    devtool: 'eval-source-map',//生成Source Maps,这里选择eval-source-map
-    //打包入口文件
-    entry: ['webpack/hot/dev-server', __dirname + '/../index.js'],
-    //打包出口文件
+    devtool: 'cheap-module-eval-source-map',
+    // 打包入口文件
+    entry: ['webpack-dev-server/client?http://localhost:8080/', __dirname + '/../src/index.js'],
+    // 打包出口文件
     output: {
-        path: __dirname + '/../',
-        filename: 'bundle.js',
+        path: __dirname + '/../src/',
+        filename: 'bundle.js'
     },
-    //loader 进行非js文件的转换打包
+    // loader 进行非js文件的转换打包
+    // loader进行非js文件的转换打包
     module: {
-        //loaders加载器 使用外部配置的 .babelrc进行配置
-        loaders: [{
-            test: /\\.(js|jsx)$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader'
-        }]
+        // loaders加载器使用外部配置的.babelrc进行配置
+        loaders: [
+            {
+                test: /\.css$/,
+                loaders: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.less$/,
+                loaders: ['style-loader', 'css-loader', 'less-loader']
+            },
+            {
+                test: /\.(png|jpg)$/,
+                loader: 'url-loader?limit=40000&outputPath=../img/'
+            },
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
+            }
+        ]
     },
-    //外置插件
+    // 外置插件
     plugins: [
-        new webpack.HotModuleReplacementPlugin()//热模块替换插件
+        new webpack.HotModuleReplacementPlugin(),// 热模块替换插件
+        new HtmlWebpackPlugin({
+            filename: __dirname + '/../src/index.html',
+            template: __dirname + '/../static/template.html',
+            inject: 'body',
+            hash: true,
+            minify: {
+                removeComments: true,
+                collapseWhitespace: false
+            }
+        })
     ],
-    //webpack-dev-server配置
+    // webpack-dev-server配置
     devServer: {
-        contentBase: __dirname + '/../', //只能精确到根文件夹 默认文件为index.html
-        historyApiFallback: true,//在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
-        inline: true,//设置为true，当源文件改变时会自动刷新页面
-        port: 8080,//设置默认监听端口，如果省略，默认为"8080"
+        contentBase: __dirname + '/../src/', // 只能精确到根文件夹 默认文件为index.html
+        historyApiFallback: true,// 在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
+        inline: true,// 设置为true，当源文件改变时会自动刷新页面
+        port: 8080,// 设置默认监听端口，如果省略，默认为"8080"
         open:true
     }
 }
-
-            `;
+`;
             return write_text;
             break;    
         case 'config/webpack.config.prod.js':
-            var write_text = `
-
+            var write_text =
+`
+/**
+ * @file: 文件
+ * @author: JihangGuo
+ * @last Modified time: 2018-02-02 14:05:30
+ * @email: guojihang@baidu.com
+ */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-
+const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 module.exports = {
-    devtool: 'eval-source-map',//生成Source Maps,这里选择eval-source-map
+    devtool: 'cheap-module-source-map',
     //打包入口文件
-    entry: [__dirname + '/../index.js'],
+    entry: [__dirname + '/../src/index.js'],
     //打包出口文件
     output: {
         path: __dirname + '/../build/js/',
-        filename: 'bundle.js',
+        filename: 'bundle.min.js',
     },
     //loader 进行非js文件的转换打包
     module: {
         //loaders加载器 使用外部配置的 .babelrc进行配置
         loaders: [
             {
-                test: /\\.css$/,
-                loaders: ['style-loader?outputPath=../css/', 'css-loader?outputPath=../css/']         
+                test: /\.css$/,
+                loaders: ['style-loader', 'css-loader']
             },
             {
-                test: /\\.(png|jpg)$/,
+                test: /\.less$/,
+                loaders: ['style-loader', 'css-loader', 'less-loader']
+            },
+            {
+                test: /\.(png|jpg)$/,
                 loader: 'url-loader?limit=40000&outputPath=../img/'
             },
             {
-                test: /\\.(js|jsx)$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             }
@@ -315,23 +466,23 @@ module.exports = {
             title:'react-app',
             filename: '../index.html',
             template:__dirname + '/../static/template.html',
-            inject: 'body', //打包之后的js插入的位置，true/'head'/'body'/false,
+            inject: 'body',
             hash: true,
             minify: {
-                    removeComments: true,    //移除HTML中的注释
-                    collapseWhitespace: false    //删除空白符与换行符
-             }
-        })
+                removeComments: true,    //移除HTML中的注释
+                collapseWhitespace: false    //删除空白符与换行符
+            }
+        }),
+        new UglifyJsPlugin
     ]
 }
-
-            `
+`;
             return write_text;
             break;    
         default:
             //抛出错误
             try {
-                throw "找不到配置文件";
+                throw "找不到配置文件 : " + filled;
             }
             catch (err) {
                 console.log('Error:' + err);
