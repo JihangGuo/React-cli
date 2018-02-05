@@ -249,13 +249,12 @@ const process = require('child_process');
 const npmRegistry = 'https://registry.npm.taobao.org';
 // 安装的运行依赖模块
 const devModules = [
-  'i',
   'babel',
   'babel-core',
   'babel-loader',
-  'babel-preset-es2015',
+  'babel-preset-latest',
   'babel-preset-react',
-  'babel-preset-stage-0',
+  'babel-preset-stage-3',
   'css-loader',
   'file-loader',
   'html-webpack-plugin',
@@ -336,9 +335,11 @@ watchDev.on('close', (data) => {
 `
 {
     "presets": [
+        "latest",
         "react",
-        "es2015"
-    ]
+        "stage-3"
+    ],
+    "plugins": []
 }
 `;
             return write_text;
