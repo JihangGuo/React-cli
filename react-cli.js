@@ -225,10 +225,10 @@ ReactDOM.render(<Root />, document.getElementById('root'));
 const process = require('child_process');
 let watchProd = process.spawn('webpack', ['--config', './config/webpack.config.prod.js', '--watch']);
 watchProd.stdout.on('data', (data) => {
-    console.log('打包监听 : \n' + data);
+    console.log('打包监听 : \\n' + data);
 });
 watchProd.on('close', (data) => {
-    console.log('关闭打包模式 : \n');
+    console.log('关闭打包模式 : \\n');
 });
 `;
             return write_text;
@@ -321,10 +321,10 @@ runShellThree.on('close', (data) => {
 const process = require('child_process');
 let watchDev = process.spawn('webpack-dev-server', ['--config', './config/webpack.config.dev.js', '--inline']);
 watchDev.stdout.on('data', (data) => {
-    console.log('开发模式 : \n' + data);
+    console.log('开发模式 : \\n' + data);
 });
 watchDev.on('close', (data) => {
-    console.log('关闭开发模式 : \n');
+    console.log('关闭开发模式 : \\n');
 });
 `;
             return write_text;
