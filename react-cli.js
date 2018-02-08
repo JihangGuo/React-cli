@@ -31,8 +31,8 @@ const file_arr = [
     'scripts/start.js',
     'config/webpack.config.dev.js',
     'config/webpack.config.prod.js',
-    'src/containers/main.jsx',
-    'src/components/notFound.jsx'
+    'src/containers/Main.jsx',
+    'src/components/NotFound.jsx'
 ];
 
 //递归清空目录
@@ -96,13 +96,13 @@ function fillText(filled) {
     <noscript>
         您的浏览器不支持JS脚本的运行！
     </noscript>
-    <div id="root"></div>
+    <div id="root" style="height:100%"></div>
 </body>
 </html>
 `;
             return write_text;
             break;
-        case 'src/containers/main.jsx':
+        case 'src/containers/Main.jsx':
             var write_text =
 `
 /**
@@ -112,18 +112,18 @@ function fillText(filled) {
  * @email: guojihang@baidu.com 
  */
 import React, { Component } from 'react';
-class notFound extends Component {
+class defaultExport extends Component {
     render() {
         return (
             <h1>Hello World！</h1>
         )
     }
 }
-export default notFound; 
+export default defaultExport; 
 `;
             return write_text;
             break;
-        case 'src/components/notFound.jsx':
+        case 'src/components/NotFound.jsx':
             var write_text =
 `
 /**
@@ -133,14 +133,14 @@ export default notFound;
  * @email: guojihang@baidu.com 
  */
 import React, { Component } from 'react';
-class notFound extends Component {
+class defaultExport extends Component {
     render() {
         return (
             <h1>找不到页面啦</h1>
         )
     }
 }
-export default notFound;
+export default defaultExport;
 `;
             return write_text;
             break;
@@ -155,18 +155,16 @@ export default notFound;
  */
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
-import main from './containers/main.jsx'
-import notFound from './components/notFound.jsx'
+import Main from './containers/Main.jsx'
+import NotFound from './components/NotFound.jsx'
 class App extends Component {
     render() {
         return (
             <Router>
-                <div>
-                    <Switch>
-                        <Route exact path="/" component={main} />
-                        <Route path="/" component={notFound} />
-                    </Switch>
-                </div>
+                <Switch>
+                    <Route exact path="/" component={Main} />
+                    <Route path="/" component={NotFound} />
+                </Switch>
             </Router>
         );
     }
@@ -254,7 +252,7 @@ const devModules = [
   'babel-loader',
   'babel-preset-latest',
   'babel-preset-react',
-  'babel-preset-stage-3',
+  'babel-preset-stage-0',
   'css-loader',
   'file-loader',
   'html-webpack-plugin',
@@ -323,6 +321,9 @@ let watchDev = process.spawn('webpack-dev-server', ['--config', './config/webpac
 watchDev.stdout.on('data', (data) => {
     console.log('开发模式 : \\n' + data);
 });
+watchDev.stderr.on('data', (data) => {
+    console.log('开发模式 : \\n' + data);
+});
 watchDev.on('close', (data) => {
     console.log('关闭开发模式 : \\n');
 });
@@ -337,7 +338,7 @@ watchDev.on('close', (data) => {
     "presets": [
         "latest",
         "react",
-        "stage-3"
+        "stage-0"
     ],
     "plugins": []
 }
@@ -360,7 +361,7 @@ const webpack = require('webpack');
 module.exports = {
     devtool: 'cheap-module-eval-source-map',
     // 打包入口文件
-    entry: ['webpack-dev-server/client?http://localhost:8080/', __dirname + '/../src/index.js'],
+    entry: ['webpack-dev-server/client?http://localhost:8080/', __dirname + '/../src/index.js', __dirname + '/../node_modules/antd/dist/antd.css'],
     // 打包出口文件
     output: {
         path: __dirname + '/../src/',
@@ -372,19 +373,19 @@ module.exports = {
         // loaders加载器使用外部配置的.babelrc进行配置
         loaders: [
             {
-                test: /\.css$/,
+                test: /\\.css$/,
                 loaders: ['style-loader', 'css-loader']
             },
             {
-                test: /\.less$/,
+                test: /\\.less$/,
                 loaders: ['style-loader', 'css-loader', 'less-loader']
             },
             {
-                test: /\.(png|jpg)$/,
+                test: /\\.(png|jpg)$/,
                 loader: 'url-loader?limit=40000&outputPath=../img/'
             },
             {
-                test: /\.(js|jsx)$/,
+                test: /\\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             }
@@ -432,7 +433,7 @@ const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 module.exports = {
     devtool: 'cheap-module-source-map',
     //打包入口文件
-    entry: [__dirname + '/../src/index.js'],
+    entry: [__dirname + '/../src/index.js', __dirname + '/../node_modules/antd/dist/antd.css'],
     //打包出口文件
     output: {
         path: __dirname + '/../build/js/',
@@ -443,19 +444,19 @@ module.exports = {
         //loaders加载器 使用外部配置的 .babelrc进行配置
         loaders: [
             {
-                test: /\.css$/,
+                test: /\\.css$/,
                 loaders: ['style-loader', 'css-loader']
             },
             {
-                test: /\.less$/,
+                test: /\\.less$/,
                 loaders: ['style-loader', 'css-loader', 'less-loader']
             },
             {
-                test: /\.(png|jpg)$/,
+                test: /\\.(png|jpg)$/,
                 loader: 'url-loader?limit=40000&outputPath=../img/'
             },
             {
-                test: /\.(js|jsx)$/,
+                test: /\\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             }
