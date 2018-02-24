@@ -8,14 +8,18 @@
     3. 项目目录结构清晰，有利于快速开始react开发
 
 
-+ 使用说明：
-    1. clone下此项目
-    2. 进入项目根目录，运行node react-cli.js进行搭建项目脚手架即可
-    3. 进入生成的React项目根目录，执行
-        + `npm run init `   初始化脚手架
-        + `npm run start `  启动开发服务器（支持热加载）
-        + `npm run build `  进行源码打包（默认为watch模式）
++ 使用说明（现阶段默认文件夹名称为app）：
+    + npm全局安装此项目(不能自定义脚手架生成文件目录)
+    >    1. `npm i react-simple-cli -g`
+    >    2. `react-cli`
 
+    + github克隆此项目（可自定义生成文件目录）
+    >    1. git clone下此项目
+    >    2. 进入项目根目录，运行`node react-cli.js`进行搭建项目脚手架即可
+    >    3. 进入生成的React项目根目录，执行
+    >        + `npm run init `   初始化脚手架
+    >        + `npm run start `  启动开发服务器（支持热加载）
+    >        + `npm run build `  进行源码打包（默认为watch模式）
 
 + 目录结构（脚本配置完毕后）：
 > + node_mudules          //npm包管理目录

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * @file: 文件 
  * @author: JihangGuo 
@@ -9,7 +11,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const dev_path = __dirname+'/app'
+const dev_path = process.cwd()+'/app'
 // 文件目录配置
 const dir_arr = [
     'scripts/',
@@ -194,9 +196,9 @@ ReactDOM.render(<Root />, document.getElementById('root'));
             var write_text =
 `
 {
-    "name": "react-demo",
+    "name": "react-simple-cli",
     "version": "1.0.0",
-    "description": "react-cli",
+    "description": "The most simple of react project",
     "main": "index.js",
     "scripts": {
         "start": "node ./scripts/start.js",
@@ -361,10 +363,10 @@ const webpack = require('webpack');
 module.exports = {
     devtool: 'cheap-module-eval-source-map',
     // 打包入口文件
-    entry: ['webpack-dev-server/client?http://localhost:8080/', __dirname + '/../src/index.js', __dirname + '/../node_modules/antd/dist/antd.css'],
+    entry: ['webpack-dev-server/client?http://localhost:8080/', process.cwd() + '/../src/index.js', process.cwd() + '/../node_modules/antd/dist/antd.css'],
     // 打包出口文件
     output: {
-        path: __dirname + '/../src/',
+        path: process.cwd() + '/../src/',
         filename: 'bundle.js'
     },
     // loader 进行非js文件的转换打包
@@ -395,8 +397,8 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),// 热模块替换插件
         new HtmlWebpackPlugin({
-            filename: __dirname + '/../src/index.html',
-            template: __dirname + '/../static/template.html',
+            filename: process.cwd() + '/../src/index.html',
+            template: process.cwd() + '/../static/template.html',
             inject: 'body',
             hash: true,
             minify: {
@@ -407,7 +409,7 @@ module.exports = {
     ],
     // webpack-dev-server配置
     devServer: {
-        contentBase: __dirname + '/../src/', // 只能精确到根文件夹 默认文件为index.html
+        contentBase: process.cwd() + '/../src/', // 只能精确到根文件夹 默认文件为index.html
         historyApiFallback: true,// 在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
         inline: true,// 设置为true，当源文件改变时会自动刷新页面
         port: 8080,// 设置默认监听端口，如果省略，默认为"8080"
@@ -433,10 +435,10 @@ const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 module.exports = {
     devtool: 'cheap-module-source-map',
     //打包入口文件
-    entry: [__dirname + '/../src/index.js', __dirname + '/../node_modules/antd/dist/antd.css'],
+    entry: [process.cwd() + '/../src/index.js', process.cwd() + '/../node_modules/antd/dist/antd.css'],
     //打包出口文件
     output: {
-        path: __dirname + '/../build/js/',
+        path: process.cwd() + '/../build/js/',
         filename: 'bundle.min.js',
     },
     //loader 进行非js文件的转换打包
@@ -467,7 +469,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             title:'react-app',
             filename: '../index.html',
-            template:__dirname + '/../static/template.html',
+            template:process.cwd() + '/../static/template.html',
             inject: 'body',
             hash: true,
             minify: {
