@@ -1,4 +1,4 @@
-# React-cli
+# React-cli (npm i react-simple-cli)
 + React项目自动部署脚手架
 
 
