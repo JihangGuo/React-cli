@@ -10,8 +10,8 @@
 // 引入node自带的相关模块
 const fs = require('fs')
 const path = require('path')
-
-const dev_path = process.cwd()+'/app'
+const project_name = process.argv[2];
+const dev_path = process.cwd() + '/' + project_name;
 // 文件目录配置
 const dir_arr = [
     'scripts/',
