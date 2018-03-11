@@ -397,7 +397,7 @@ const webpack = require('webpack');
 module.exports = {
     devtool: 'cheap-module-eval-source-map',
     // 打包入口文件
-    entry: ['webpack-dev-server/client?http://localhost:8080/', __dirname + '/../src/index.js'],
+    entry: ['webpack-dev-server/client?http://localhost:8080/', __dirname + '/../src/index.js',  __dirname + '/../node_modules/antd/dist/antd.css'],
     // 打包出口文件
     output: {
         path: __dirname + '/../src/',
@@ -418,7 +418,7 @@ module.exports = {
             },
             {
                 test: /\\.(png|jpg)$/,
-                loader: 'url-loader?limit=40000&outputPath=../img/'
+                loader: 'url-loader?limit=40000&outputPath=./img/'
             },
             {
                 test: /\\.(js|jsx)$/,
@@ -469,7 +469,7 @@ const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 module.exports = {
     devtool: 'cheap-module-source-map',
     //打包入口文件
-    entry: [__dirname + '/../src/index.js'],
+    entry: [__dirname + '/../src/index.js',  __dirname + '/../node_modules/antd/dist/antd.css'],
     //打包出口文件
     output: {
         path: __dirname + '/../build/js/',
@@ -489,7 +489,7 @@ module.exports = {
             },
             {
                 test: /\\.(png|jpg)$/,
-                loader: 'url-loader?limit=40000&outputPath=../img/'
+                loader: 'url-loader?limit=40000&outputPath=./img/'
             },
             {
                 test: /\\.(js|jsx)$/,
