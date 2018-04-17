@@ -54,39 +54,35 @@ function delAll(path) {
 
 //设置相关目录
 function createDir() {
-    
+
     //检查是否已创建
     var check_exis = fs.existsSync(dev_path);
-    if (check_exis)
-    {
+    if (check_exis) {
         console.log('清空残留开发文档');
         delAll(dev_path);
-    }   
+    }
     //创建开发目录
     fs.mkdirSync(dev_path);
-    for (var i = 0; i < dir_arr.length; i++)
-    {
+    for (var i = 0; i < dir_arr.length; i++) {
         fs.mkdirSync(dev_path + '/' + dir_arr[i]);
-    }    
-        console.log('项目文件夹创建完毕');
+    }
+    console.log('项目文件夹创建完毕');
 }
 
 //创建开发文件
 function createFile() {
-    for (var i = 0; i < file_arr.length; i++)
-    {
-        fs.openSync(dev_path+'/'+file_arr[i],'w');
+    for (var i = 0; i < file_arr.length; i++) {
+        fs.openSync(dev_path + '/' + file_arr[i], 'w');
     }
     console.log('项目文件创建完毕');
 }
 
 //配置开发文件
 function fillText(filled) {
-    switch (filled)
-    {
+    switch (filled) {
         case 'static/template.html':
             var write_text =
-`
+                `
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,7 +102,7 @@ function fillText(filled) {
             break;
         case 'src/containers/Main.jsx':
             var write_text =
-`
+                `
 /**
  * @file: 文件 
  * @author: JihangGuo 
@@ -127,7 +123,7 @@ export default defaultExport;
             break;
         case 'src/components/NotFound.jsx':
             var write_text =
-`
+                `
 /**
  * @file: 文件 
  * @author: JihangGuo 
@@ -148,7 +144,7 @@ export default defaultExport;
             break;
         case 'src/app.jsx':
             var write_text =
-`
+                `
 /**
  * @file: 文件 
  * @author: JihangGuo 
@@ -172,12 +168,12 @@ class App extends Component {
     }
 }
 export default App;
-`    
+`
             return write_text;
             break;
         case 'src/index.js':
-            var write_text = 
-`
+            var write_text =
+                `
 /**
  * @file: 文件 
  * @author: JihangGuo 
@@ -191,10 +187,10 @@ ReactDOM.render(<Root />, document.getElementById('root'));
 
 `;
             return write_text;
-            break;    
+            break;
         case 'package.json':
             var write_text =
-`
+                `
 {
     "name": "react-simple-cli",
     "version": "1.1.3",
@@ -238,10 +234,10 @@ ReactDOM.render(<Root />, document.getElementById('root'));
 }
 `;
             return write_text;
-            break;    
+            break;
         case 'scripts/build.js':
             var write_text =
-`
+                `
 /**
  * @file: 文件
  * @author: JihangGuo
@@ -261,7 +257,7 @@ watchProd.on('close', (data) => {
             break;
         case 'scripts/init.js':
             var write_text =
-`
+                `
 
 /**
  * @file: 项目初始化文件
@@ -342,10 +338,10 @@ runShellAll.on('close', (data) => {
 });
 `;
             return write_text;
-            break;  
+            break;
         case 'scripts/start.js':
             var write_text =
-`
+                `
 /**
  * @file: 文件
  * @author: JihangGuo
@@ -365,25 +361,25 @@ watchDev.on('close', (data) => {
 });
 `;
             return write_text;
-            break;    
-    
+            break;
+
         case '.babelrc':
             var write_text =
-`
+                `
 {
     "presets": [
         "latest",
         "react",
         "stage-0"
     ],
-    "plugins": []
+    "plugins": ["transform-decorators-legacy"]
 }
 `;
             return write_text;
             break;
         case 'config/webpack.config.dev.js':
             var write_text =
-`
+                `
 /**
  * @file: 文件
  * @author: JihangGuo
@@ -452,10 +448,10 @@ module.exports = {
 }
 `;
             return write_text;
-            break;    
+            break;
         case 'config/webpack.config.prod.js':
             var write_text =
-`
+                `
 /**
  * @file: 文件
  * @author: JihangGuo
@@ -516,7 +512,7 @@ module.exports = {
 }
 `;
             return write_text;
-            break;    
+            break;
         default:
             //抛出错误
             try {
@@ -531,9 +527,8 @@ module.exports = {
 //填充开发文件
 function fillFile() {
     //填充package.json
-    for (var i = 0; i < file_arr.length; i++)
-    {
-        fs.writeFileSync(dev_path + '/' + file_arr[i], fillText(file_arr[i]));  
+    for (var i = 0; i < file_arr.length; i++) {
+        fs.writeFileSync(dev_path + '/' + file_arr[i], fillText(file_arr[i]));
     }
     console.log('项目文件配置完毕');
 }
