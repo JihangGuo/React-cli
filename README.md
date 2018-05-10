@@ -8,10 +8,10 @@
     3. 项目目录结构清晰，有利于快速开始react开发
 
 
-+ 使用说明（现阶段默认文件夹名称为app）：
-    + npm全局安装此项目(不能自定义脚手架生成文件目录)
++ 使用说明：
+    + npm全局安装此项目:
     >    1. `npm i react-simple-cli -g`
-    >    2. `react-cli <project-name>`    __默认生成项目名为project
+    >    2. `react-cli <project-name>`    __默认生成项目名为project__
 
     + github克隆此项目（可自定义生成文件目录）
     >    1. git clone下此项目

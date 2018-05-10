@@ -42,10 +42,10 @@ const file_arr = [
 
 //递归清空目录
 function delAll(path) {
-    var files_list = [];
+    let files_list = [];
     files_list = fs.readdirSync(path);
     files_list.forEach(function (file, index) {
-        var next = path + '/' + file;
+        let next = path + '/' + file;
         if (fs.statSync(next).isDirectory()) {
             delAll(next);
         } else {
@@ -59,14 +59,14 @@ function delAll(path) {
 function createDir() {
 
     //检查是否已创建
-    var check_exis = fs.existsSync(dev_path);
+    let check_exis = fs.existsSync(dev_path);
     if (check_exis) {
         console.log('清空残留开发文档');
         delAll(dev_path);
     }
     //创建开发目录
     fs.mkdirSync(dev_path);
-    for (var i = 0; i < dir_arr.length; i++) {
+    for (let i = 0; i < dir_arr.length; i++) {
         fs.mkdirSync(dev_path + '/' + dir_arr[i]);
     }
     console.log('项目文件夹创建完毕');
@@ -74,7 +74,7 @@ function createDir() {
 
 //创建开发文件
 function createFile() {
-    for (var i = 0; i < file_arr.length; i++) {
+    for (let i = 0; i < file_arr.length; i++) {
         fs.openSync(dev_path + '/' + file_arr[i], 'w');
     }
     console.log('项目文件创建完毕');
@@ -84,7 +84,7 @@ function createFile() {
 function fillText(filled) {
     switch (filled) {
         case 'static/template.html':
-            var write_text =
+            let write_text =
                 `
 <!DOCTYPE html>
 <html>
@@ -104,7 +104,7 @@ function fillText(filled) {
             return write_text;
             break;
         case 'mock/db.js':
-            var write_text =
+            let write_text =
                 `
 const Mock = require('mockjs');
 
@@ -135,7 +135,7 @@ module.exports = function() {
             return write_text;
             break;
             case 'mock/routes.json':
-            var write_text =
+            let write_text =
                 `
 {
     "/api/*": "/$1"
@@ -144,7 +144,7 @@ module.exports = function() {
             return write_text;
             break;
         case 'src/containers/Main.jsx':
-            var write_text =
+            let write_text =
                 `
 /**
  * @file: 文件 
@@ -153,19 +153,46 @@ module.exports = function() {
  * @email: guojihang@baidu.com 
  */
 import React, { Component } from 'react';
+import { Spin, Alert, Progress } from 'antd';
+
 class defaultExport extends Component {
+    constructor(props) {
+        super(props);
+
+        // 设置组件数据state
+        this.state = {
+
+        };
+
+        // 函数绑定
+
+        // 全局变量定义
+    }
+
     render() {
         return (
-            <h1>Hello World！</h1>
+            <div>
+                <div style={{textAlign: 'center', margin: '50px 0px', fontSize: 30}}>
+                    <span style={{verticalAlign: 'middle'}}>Hello React!</span>
+                    <Progress style={{verticalAlign: 'middle', display: 'inline-block', marginLeft: 10}} type="circle" percent={100} width={40} />
+                </div>                
+                <Spin tip="Success...">
+                    <Alert
+                    message="开始React开发吧"
+                    description="开发服务器配置完成"
+                    type="info"
+                    />
+                </Spin>
+            </div>
         )
     }
 }
-export default defaultExport; 
+export default defaultExport;
 `;
             return write_text;
             break;
         case 'src/components/NotFound.jsx':
-            var write_text =
+            let write_text =
                 `
 /**
  * @file: 文件 
@@ -186,7 +213,7 @@ export default defaultExport;
             return write_text;
             break;
         case 'src/app.jsx':
-            var write_text =
+            let write_text =
                 `
 /**
  * @file: 文件 
@@ -215,7 +242,7 @@ export default App;
             return write_text;
             break;
         case 'src/index.js':
-            var write_text =
+            let write_text =
                 `
 /**
  * @file: 文件 
@@ -232,7 +259,7 @@ ReactDOM.render(<Root />, document.getElementById('root'));
             return write_text;
             break;
         case 'package.json':
-            var write_text =
+            let write_text =
                 `
 {
     "name": "react-simple-cli",
@@ -282,7 +309,7 @@ ReactDOM.render(<Root />, document.getElementById('root'));
             return write_text;
             break;
         case 'scripts/build.js':
-            var write_text =
+            let write_text =
                 `
 /**
  * @file: 文件
@@ -302,9 +329,8 @@ watchProd.on('close', (data) => {
             return write_text;
             break;
         case 'scripts/init.js':
-            var write_text =
+            let write_text =
                 `
-
 /**
  * @file: 项目初始化文件
  * @author: JihangGuo
@@ -315,81 +341,89 @@ const process = require('child_process');
 
 // npm源设置
 const npmRegistry = 'https://registry.npm.taobao.org';
+
 // 安装的运行依赖模块
-const devModules = [
-  'babel',
-  'babel-core',
-  'babel-loader',
-  'babel-preset-latest',
-  'babel-preset-react',
-  'babel-preset-stage-0',
-  'css-loader',
-  'file-loader',
-  'html-webpack-plugin',
-  'style-loader','url-loader',
-  'webpack',
-  'less-loader',
-  'less',
-  'webpack-dev-server'
+const prodModules = [
+    'react@16.2.0',
+    'react-dom@16.2.0',
+    'react-router-dom@4.2.2',
+    'axios@0.17.1',
+    'antd@3.2.0',
+    'moment@2.20.1',
+    'mobx@3.5.1',
+    'mobx-react@4.4.2'
 ];
 
 // 安装的开发依赖模块
-const prodModules = [
-  'react',
-  'react-dom',
-  'react-router-dom',
-  'axios',
-  'antd',
-  'moment',
-  'mobx',
-  'json-server',
-  'mockjs'
+const devModules = [
+    'babel@6.23.0',
+    'babel-core@6.26.0',
+    'babel-loader@7.1.2',
+    'babel-preset-latest@6.24.1',
+    'babel-preset-react@6.24.1',
+    'babel-preset-stage-0@6.24.1',
+    'babel-plugin-transform-decorators-legacy@1.3.4',
+    'css-loader@0.28.9',
+    'file-loader@1.1.6',
+    'html-webpack-plugin@2.30.1',
+    'style-loader@0.20.1',
+    'webpack@3.10.0',
+    'url-loader@0.6.2',
+    'less-loader@4.0.5',
+    'less@2.7.3',
+    'webpack-dev-server@2.11.1',
+    'json-server@0.12.2',
+    'mockjs@1.0.1-beta3'
 ];
 
 // 由于spawn命令参数传递的特殊性 故在数组[0][-1]加入额外参数
-// let commontProd = prodModules.map((item) => {
-//   return item;
-// });
-// let commontDev = devModules.map((item) => {
-//   return item;
-// });
-// commontProd.push('--save');
-// commontProd.unshift('i');
-// commontDev.push('--save-dev');
-// commontDev.unshift('i');
+let commontProd = prodModules.map((item) => {
+    return item;
+});
+let commontDev = devModules.map((item) => {
+    return item;
+});
+commontProd.push('--save');
+commontProd.unshift('i');
+commontDev.push('--save-dev');
+commontDev.unshift('i');
 
 // 运行线程任务
-// process.execSync(\`npm config set registry \${npmRegistry}\`);
-// console.log("设置npm源为淘宝源成功");
+process.execSync(\`npm config set registry ${npmRegistry}\`);
+console.log('\\x1B[31m 设置npm源为淘宝源成功 \\x1b[0m');
 
-// let runShellTwo = process.spawn('npm',commontProd);
-// runShellTwo.stdout.on('data', (data) => {
-//   console.log("正在下载依赖模块 : \\n" + data);
-// });
-// runShellTwo.on('close', (data) => {
-//   console.log("依赖模块安装成功\\n");
-// });
+console.log('\\x1B[33m 等待下一步...(1/3) \\x1b[0m');
 
-// let runShellThree = process.spawn('npm',commontDev);
-// runShellThree.stdout.on('data', (data) => {
-//   console.log("正在下载开发依赖模块 : \\n" + data);
-// });
-// runShellThree.on('close', (data) => {
-//   console.log("开发依赖模块安装成功\\n项目初始化完成");
-// });
-
-let runShellAll = process.spawn('npm',['install']);
-runShellAll.stdout.on('data', (data) => {
-  console.log("正在下载开发依赖模块 : \\n" + data);
+let runShellProd = process.spawn('npm',commontProd);
+runShellProd.stdout.on('data', (data) => {
+    console.log('\\x1B[44m 正在下载依赖模块 : \\x1b[0m\\n' + data);
 });
-runShellAll.on('close', (data) => {
-  console.log("开发依赖模块安装成功\\n项目初始化完成");
+runShellProd.on('close', (data) => {
+    console.log('\\x1B[44m 依赖模块安装成功 \\x1b[0m\\n');
+    console.log('\\x1B[33m 等待下一步...(2/3) \\x1b[0m');
 });
+
+let runShellDev = process.spawn('npm',commontDev);
+runShellDev.stdout.on('data', (data) => {
+    console.log('\\x1B[44m 正在下载开发依赖模块 \\x1b[0m: \\n' + data);
+});
+runShellDev.on('close', (data) => {
+    console.log('\\x1B[32m 开发依赖模块安装成功\\n项目初始化完成(done) \\x1b[0m');
+});
+
+
+// let runShellAll = process.spawn('npm',['install']);
+// runShellAll.stdout.on('data', (data) => {
+//   console.log('正在下载开发依赖模块 : \\n' + data);
+// });
+// runShellAll.on('close', (data) => {
+//   console.log('开发依赖模块安装成功\\n项目初始化完成');
+// });
 `;
             return write_text;
             break;
         case 'scripts/start.js':
-            var write_text =
+            let write_text =
                 `
 /**
  * @file: 文件
@@ -413,7 +447,7 @@ watchDev.on('close', (data) => {
             break;
 
         case '.babelrc':
-            var write_text =
+            let write_text =
                 `
 {
     "presets": [
@@ -427,7 +461,7 @@ watchDev.on('close', (data) => {
             return write_text;
             break;
         case 'config/webpack.config.dev.js':
-            var write_text =
+            let write_text =
                 `
 /**
  * @file: 文件
@@ -506,7 +540,7 @@ module.exports = {
             return write_text;
             break;
         case 'config/webpack.config.prod.js':
-            var write_text =
+            let write_text =
                 `
 /**
  * @file: 文件
@@ -583,7 +617,7 @@ module.exports = {
 //填充开发文件
 function fillFile() {
     //填充package.json
-    for (var i = 0; i < file_arr.length; i++) {
+    for (let i = 0; i < file_arr.length; i++) {
         fs.writeFileSync(dev_path + '/' + file_arr[i], fillText(file_arr[i]));
     }
     console.log('项目文件配置完毕');
