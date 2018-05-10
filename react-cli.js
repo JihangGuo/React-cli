@@ -10,13 +10,14 @@
 // 引入node自带的相关模块
 const fs = require('fs')
 const path = require('path')
-const project_name = process.argv[2];
+const project_name = process.argv[2] || "project";
 const dev_path = process.cwd() + '/' + project_name;
 // 文件目录配置
 const dir_arr = [
     'scripts/',
     'config/',
     'static/',
+    'mock/',
     'src/',
     'src/components/',
     'src/containers/'
@@ -28,6 +29,8 @@ const file_arr = [
     'src/index.js',
     'package.json',
     'static/template.html',
+    'mock/db.js',
+    'mock/routes.json',
     'scripts/init.js',
     'scripts/build.js',
     'scripts/start.js',
@@ -98,6 +101,46 @@ function fillText(filled) {
 </body>
 </html>
 `;
+            return write_text;
+            break;
+        case 'mock/db.js':
+            var write_text =
+                `
+const Mock = require('mockjs');
+
+module.exports = function() {
+    let data = {
+        'index': [
+            {
+                id: 0,
+                title: Mock.mock({
+                    "string|1-10": "★"
+                    }),
+                img:  Mock.Random.image('200x100', '#50B347', '#FFF', 'Mock.js')
+            }
+        ],
+        'home': [
+            {
+                id: 1,
+                title: Mock.mock({
+                    "string|1-10": "!"
+                    }),
+                img:  Mock.Random.image('200x100', '#50B347', '#FFF', 'Mock.js')
+            }
+        ]
+    }
+    return data
+}    
+`
+            return write_text;
+            break;
+            case 'mock/routes.json':
+            var write_text =
+                `
+{
+    "/api/*": "/$1"
+}
+`
             return write_text;
             break;
         case 'src/containers/Main.jsx':
@@ -193,13 +236,14 @@ ReactDOM.render(<Root />, document.getElementById('root'));
                 `
 {
     "name": "react-simple-cli",
-    "version": "1.1.3",
+    "version": "1.1.7",
     "description": "The most simple of react project",
     "main": "index.js",
     "scripts": {
         "start": "node ./scripts/start.js",
         "build": "node ./scripts/build.js",
-        "init": "node ./scripts/init.js"
+        "init": "node ./scripts/init.js",
+        "server": "json-server --watch mock/db.js --routes mock/routes.json --port 9999"
     },
     "dependencies": {
         "antd": "^3.2.0",
@@ -209,7 +253,9 @@ ReactDOM.render(<Root />, document.getElementById('root'));
         "moment": "^2.20.1",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
-        "react-router-dom": "^4.2.2"
+        "react-router-dom": "^4.2.2",
+        "json-server": "^0.12.2",
+        "mockjs": "^1.0.1-beta3"
     },
     "devDependencies": {
         "babel": "^6.23.0",
@@ -293,8 +339,11 @@ const prodModules = [
   'react-dom',
   'react-router-dom',
   'axios',
-  "antd",
-  "moment"
+  'antd',
+  'moment',
+  'mobx',
+  'json-server',
+  'mockjs'
 ];
 
 // 由于spawn命令参数传递的特殊性 故在数组[0][-1]加入额外参数
@@ -443,7 +492,14 @@ module.exports = {
         historyApiFallback: true,// 在开发单页应用时非常有用，它依赖于HTML5 history API，如果设置为true，所有的跳转将指向index.html
         inline: true,// 设置为true，当源文件改变时会自动刷新页面
         port: 8080,// 设置默认监听端口，如果省略，默认为"8080"
-        open:true
+        open:true,
+        proxy: {
+            '/api': {
+                target: 'http://localhost:9999/',
+                changeOrigin: true,
+                secure: false
+            }
+        }
     }
 }
 `;
