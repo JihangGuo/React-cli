@@ -84,7 +84,7 @@ function createFile() {
 function fillText(filled) {
     switch (filled) {
         case 'static/template.html':
-            let write_text =
+            var write_text =
                 `
 <!DOCTYPE html>
 <html>
@@ -104,7 +104,7 @@ function fillText(filled) {
             return write_text;
             break;
         case 'mock/db.js':
-            let write_text =
+            var write_text =
                 `
 const Mock = require('mockjs');
 
@@ -135,7 +135,7 @@ module.exports = function() {
             return write_text;
             break;
             case 'mock/routes.json':
-            let write_text =
+            var write_text =
                 `
 {
     "/api/*": "/$1"
@@ -144,7 +144,7 @@ module.exports = function() {
             return write_text;
             break;
         case 'src/containers/Main.jsx':
-            let write_text =
+            var write_text =
                 `
 /**
  * @file: 文件 
@@ -192,7 +192,7 @@ export default defaultExport;
             return write_text;
             break;
         case 'src/components/NotFound.jsx':
-            let write_text =
+            var write_text =
                 `
 /**
  * @file: 文件 
@@ -213,7 +213,7 @@ export default defaultExport;
             return write_text;
             break;
         case 'src/app.jsx':
-            let write_text =
+            var write_text =
                 `
 /**
  * @file: 文件 
@@ -242,7 +242,7 @@ export default App;
             return write_text;
             break;
         case 'src/index.js':
-            let write_text =
+            var write_text =
                 `
 /**
  * @file: 文件 
@@ -259,7 +259,7 @@ ReactDOM.render(<Root />, document.getElementById('root'));
             return write_text;
             break;
         case 'package.json':
-            let write_text =
+            var write_text =
                 `
 {
     "name": "react-simple-cli",
@@ -309,7 +309,7 @@ ReactDOM.render(<Root />, document.getElementById('root'));
             return write_text;
             break;
         case 'scripts/build.js':
-            let write_text =
+            var write_text =
                 `
 /**
  * @file: 文件
@@ -329,7 +329,7 @@ watchProd.on('close', (data) => {
             return write_text;
             break;
         case 'scripts/init.js':
-            let write_text =
+            var write_text =
                 `
 /**
  * @file: 项目初始化文件
@@ -389,7 +389,7 @@ commontDev.push('--save-dev');
 commontDev.unshift('i');
 
 // 运行线程任务
-process.execSync(\`npm config set registry ${npmRegistry}\`);
+process.execSync(\`npm config set registry $\{npmRegistry\}\`);
 console.log('\\x1B[31m 设置npm源为淘宝源成功 \\x1b[0m');
 
 console.log('\\x1B[33m 等待下一步...(1/3) \\x1b[0m');
@@ -423,7 +423,7 @@ runShellDev.on('close', (data) => {
             return write_text;
             break;
         case 'scripts/start.js':
-            let write_text =
+            var write_text =
                 `
 /**
  * @file: 文件
@@ -447,7 +447,7 @@ watchDev.on('close', (data) => {
             break;
 
         case '.babelrc':
-            let write_text =
+            var write_text =
                 `
 {
     "presets": [
@@ -461,7 +461,7 @@ watchDev.on('close', (data) => {
             return write_text;
             break;
         case 'config/webpack.config.dev.js':
-            let write_text =
+            var write_text =
                 `
 /**
  * @file: 文件
@@ -540,7 +540,7 @@ module.exports = {
             return write_text;
             break;
         case 'config/webpack.config.prod.js':
-            let write_text =
+            var write_text =
                 `
 /**
  * @file: 文件
