@@ -317,8 +317,8 @@ ReactDOM.render(<Root />, document.getElementById('root'));
  * @last Modified time: 2018-02-02 13:19:37
  * @email: guojihang@baidu.com
  */
-const process = require('child_process');
-let watchProd = process.spawn('webpack', ['--config', './config/webpack.config.prod.js', '--watch']);
+const child_process = require('child_process');
+let watchProd = child_process.spawn(process.platform === 'win32' ? 'webpack.cmd' : 'webpack', ['--config', './config/webpack.config.prod.js', '--watch']);
 watchProd.stdout.on('data', (data) => {
     console.log('打包监听 : \\n' + data);
 });
@@ -337,7 +337,7 @@ watchProd.on('close', (data) => {
  * @last Modified time: 2018-02-02 11:28:46
  * @email: guojihang@baidu.com
  */
-const process = require('child_process');
+const child_process = require('child_process');
 
 // npm源设置
 const npmRegistry = 'https://registry.npm.taobao.org';
@@ -389,12 +389,12 @@ commontDev.push('--save-dev');
 commontDev.unshift('i');
 
 // 运行线程任务
-process.execSync(\`npm config set registry $\{npmRegistry\}\`);
+child_process.execSync(\`npm config set registry $\{npmRegistry\}\`);
 console.log('\\x1B[31m 设置npm源为淘宝源成功 \\x1b[0m');
 
 console.log('\\x1B[33m 等待下一步...(1/3) \\x1b[0m');
 
-let runShellProd = process.spawn('npm',commontProd);
+let runShellProd = child_process.spawn(process.platform === 'win32' ? 'npm.cmd' : 'npm',commontProd);
 runShellProd.stdout.on('data', (data) => {
     console.log('\\x1B[44m 正在下载依赖模块 : \\x1b[0m\\n' + data);
 });
@@ -403,7 +403,7 @@ runShellProd.on('close', (data) => {
     console.log('\\x1B[33m 等待下一步...(2/3) \\x1b[0m');
 });
 
-let runShellDev = process.spawn('npm',commontDev);
+let runShellDev = child_process.spawn(process.platform === 'win32' ? 'npm.cmd' : 'npm',commontDev);
 runShellDev.stdout.on('data', (data) => {
     console.log('\\x1B[44m 正在下载开发依赖模块 \\x1b[0m: \\n' + data);
 });
@@ -412,7 +412,7 @@ runShellDev.on('close', (data) => {
 });
 
 
-// let runShellAll = process.spawn('npm',['install']);
+// let runShellAll = child_process.spawn(process.platform === 'win32' ? 'npm.cmd' : 'npm',['install']);
 // runShellAll.stdout.on('data', (data) => {
 //   console.log('正在下载开发依赖模块 : \\n' + data);
 // });
@@ -431,8 +431,8 @@ runShellDev.on('close', (data) => {
  * @last Modified time: 2018-02-02 13:19:37
  * @email: guojihang@baidu.com
  */
-const process = require('child_process');
-let watchDev = process.spawn('webpack-dev-server', ['--config', './config/webpack.config.dev.js', '--inline']);
+const child_process = require('child_process');
+let watchDev = child_process.spawn(process.platform === 'win32' ? 'webpack-dev-server.cmd' : 'webpack-dev-server', ['--config', './config/webpack.config.dev.js', '--inline']);
 watchDev.stdout.on('data', (data) => {
     console.log('开发模式 : \\n' + data);
 });
